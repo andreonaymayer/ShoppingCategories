@@ -7,15 +7,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class Category {
     @Id
-    private UUID id = UUID.randomUUID();
+    private UUID id;
     private String name;
 
-    public Category(String name) {
+    public Category(String id, String name) {
         this.name = name;
+        this.id = UUID.randomUUID();
     }
 
-    public UUID getId() {
-        return id;
+    public String getId() {
+        return id.toString();
     }
 
     public String getName() {

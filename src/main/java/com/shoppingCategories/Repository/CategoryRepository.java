@@ -3,18 +3,32 @@ package com.shoppingCategories.Repository;
 import com.shoppingCategories.Entities.Category;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
+@Repository
 public class CategoryRepository {
     private List<Category> categoryList = new ArrayList<>();
 
 
-    public boolean addCategory(String categoryName) {
+    public CategoryRepository() {
 
-        if (!nameAlreadyExists(categoryName)) {
-            categoryList.add(new Category(categoryName));
-            return true;
+        addCategory(new Category("","Food"));
+        addCategory(new Category("","Drinks"));
+        addCategory(new Category("","Services"));
+        addCategory(new Category("","Vegan"));
+        addCategory(new Category("","Sports"));
+    }
+
+    public Category addCategory(Category newCategory) {
+        if (!nameAlreadyExists(newCategory.getName())) {
+            categoryList.add(newCategory);
+            return newCategory;
         }
-        return false;
+        return null;
     }
 
     public boolean deleteCategory(String categoryName) {
@@ -58,4 +72,6 @@ public class CategoryRepository {
         }
         return false;
     }
+
+
 }
