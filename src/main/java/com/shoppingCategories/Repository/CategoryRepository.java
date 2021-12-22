@@ -3,11 +3,7 @@ package com.shoppingCategories.Repository;
 import com.shoppingCategories.Entities.Category;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @Repository
 public class CategoryRepository {
@@ -16,11 +12,11 @@ public class CategoryRepository {
 
     public CategoryRepository() {
 
-        addCategory(new Category("","Food"));
-        addCategory(new Category("","Drinks"));
-        addCategory(new Category("","Services"));
-        addCategory(new Category("","Vegan"));
-        addCategory(new Category("","Sports"));
+        addCategory(new Category("", "Food"));
+        addCategory(new Category("", "Drinks"));
+        addCategory(new Category("", "Services"));
+        addCategory(new Category("", "Vegan"));
+        addCategory(new Category("", "Sports"));
     }
 
     public Category addCategory(Category newCategory) {
@@ -29,16 +25,6 @@ public class CategoryRepository {
             return newCategory;
         }
         return null;
-    }
-
-    public boolean deleteCategory(String categoryName) {
-        int index = getIndexOfItem(categoryName);
-        if (index == -1) {
-            return false;
-        }
-        categoryList.remove(index);
-        return true;
-
     }
 
     public List<Category> getCategoryList() {
@@ -55,23 +41,33 @@ public class CategoryRepository {
         return false;
     }
 
-    public int getIndexOfItem(String categoryName) {
+    public int getIndexOfItem(String categoryNameOrID) {
         for (int i = 0; i < categoryList.size(); i++) {
-            if (categoryList.get(i).getName().equals(categoryName)) {
+            if (categoryList.get(i).getName().equals(categoryNameOrID)) {
+                return i;
+            } else if (categoryList.get(i).getId().equals(categoryNameOrID)) {
                 return i;
             }
         }
         return -1;
     }
 
-    public boolean editCategory(String categoryName, String categoryNewName) {
-        int index = getIndexOfItem(categoryName);
+    public boolean editCategory(Category category, String categoryNameOrID) {
+        int index = getIndexOfItem(categoryNameOrID);
         if (index != -1) {
-            categoryList.get(index).setName(categoryNewName);
+            categoryList.get(index).setName(category.getName());
             return true;
         }
         return false;
     }
 
+    public boolean deleteCategory(String categoryNameOrID) {
+        int index = getIndexOfItem(categoryNameOrID);
+        if (index != -1) {
+            categoryList.remove(index);
+            return true;
+        }
+        return false;
+    }
 
 }

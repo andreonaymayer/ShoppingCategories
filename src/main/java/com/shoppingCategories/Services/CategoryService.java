@@ -49,11 +49,25 @@ public class CategoryService {
     public Category getCategoryByID(String id) {
         List<Category> list = categoryRepo.getCategoryList();
 
-        for (int i=0; i< list.size(); i++){
-            if (list.get(i).getId().equals(id)){
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getId().equals(id)) {
                 return list.get(i);
             }
         }
         return null;
+    }
+
+    public Category updateCategory(Category category, String id) {
+        if (categoryRepo.editCategory(category, id)) {
+            return category;
+        }
+        throw new IllegalArgumentException("ID not found");
+    }
+
+    public boolean deleteCategory(String id) {
+        if (categoryRepo.deleteCategory(id)) {
+            return true;
+        }
+        throw new IllegalArgumentException("ID not found");
     }
 }
