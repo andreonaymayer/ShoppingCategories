@@ -1,7 +1,7 @@
 package com.shoppingCategories.demo;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-
 import com.shoppingCategories.Entities.Category;
 import com.shoppingCategories.Repository.CategoryRepository;
 import com.shoppingCategories.Services.CategoryService;
@@ -34,7 +34,7 @@ public class CategoryTest {
 
     @Test
     @DisplayName("List all categories of repository")
-    public void testCategoryList(){
+    public void testCategoryList() {
         CategoryRepository categoryRepo = new CategoryRepository();
         CategoryService categoryService = new CategoryService(categoryRepo);
 
@@ -43,14 +43,12 @@ public class CategoryTest {
 
     @Test
     @DisplayName("Delete Category by name")
-    public void testCategoryDelete(){
+    public void testCategoryDelete() {
         CategoryRepository categoryRepo = new CategoryRepository();
-
         categoryRepo.deleteCategory("Food");
-
         CategoryService categoryService = new CategoryService(categoryRepo);
-
         System.out.println("RESULT:\n" + categoryService.listToString());
+
         int actual = categoryRepo.getCategoryList().size();
         assertThat("The number of categories is correct", actual, is(4));
     }
@@ -60,7 +58,7 @@ public class CategoryTest {
     public void editCategory() {
         CategoryRepository categoryRepo = new CategoryRepository();
         Category computers = new Category("", "Personal computers");
-        categoryRepo.editCategory(computers,"Food");
+        categoryRepo.editCategory(computers, "Food");
 
         String expected = categoryRepo.getCategoryList().get(0).getName();
 
