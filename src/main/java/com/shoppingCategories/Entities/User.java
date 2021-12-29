@@ -8,6 +8,16 @@ public class User implements Serializable {
     private String username;
     private String password;
 
+    //need default constructor for JSON Parsing
+    public User() {
+
+    }
+
+    public User(String username, String password) {
+        this.setUsername(username);
+        this.setPassword(password);
+    }
+
     public String getUsername() {
         return username;
     }
@@ -22,16 +32,5 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    //need default constructor for JSON Parsing
-    public User()
-    {
-
-    }
-
-    public User(String username, String password) {
-        this.setUsername(username);
-        this.setPassword(password);
     }
 }

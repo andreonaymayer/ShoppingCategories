@@ -15,7 +15,6 @@ public class CategoryService {
     private CategoryRepository categoryRepo;
 
     public CategoryService(CategoryRepository category) {
-        //category = new CategoryRepository();
         this.categoryRepo = category;
     }
 
