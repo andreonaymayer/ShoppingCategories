@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -32,54 +31,44 @@ public class CategoryController {
     }
 
     @GetMapping("/category/")
+    @ResponseBody
     public List<Category> listCategoryByName(@RequestParam(required = false, defaultValue = "") String name) {
-        return categoryService.getAllCategories(name);
+        return categoryService.getCategoriesByName(name);
     }
 
-//    @RequestMapping("/category1")
-//    @ResponseBody
-//    public List<Category> listCategoryByName1(@RequestParam(required = false, defaultValue = "") String name) {
-//        return categoryService.getCategoriesOrByName(name);
-//    }
-//
-//    @RequestMapping("/home")
-//    @ResponseBody
-//    public String home() {
-//        return "Home, welcome!";
-//    }
-//
-//    @PostMapping("/category/")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public void addCategory(@RequestBody Category category) {
-//
-//        categoryService.newCategory(category);
-//    }
-//
-//    @GetMapping("/category/{id}")
-//    public ResponseEntity<Category> categoryListById(@PathVariable String id) {
-//        Category category = categoryService.getCategoryByID(id);
-//        if (category == null) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        return ResponseEntity.ok(category);
-//    }
-//
-//    @PutMapping(path = "/category/{id}")
-//    public @ResponseBody
-//    ResponseEntity<Category> updateCategory(@RequestBody Category category, @PathVariable String id) {
-//        try {
-//            return ResponseEntity.ok(categoryService.updateCategory(category, id));
-//        } catch (IllegalArgumentException e) {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
-//
-//    @DeleteMapping(value = "/category/{id}")
-//    public void categoryDelete(@PathVariable String id) {
-//        try {
-//            categoryService.deleteCategory(id);
-//        } catch (IllegalArgumentException e) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id not found");
-//        }
-//    }
+
+    @PostMapping("/category/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addCategory(@RequestBody Category category) {
+
+        categoryService.newCategory(category);
+    }
+
+    @GetMapping("/category/{id}")
+    public ResponseEntity<Category> categoryListById(@PathVariable String id) {
+        try {
+            return ResponseEntity.ok(categoryService.getCategoryByID(id));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping(path = "/category/{id}")
+    public @ResponseBody
+    ResponseEntity<Category> updateCategory(@RequestBody Category category, @PathVariable String id) {
+        try {
+            return ResponseEntity.ok(categoryService.updateCategory(category, id));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping(value = "/category/{id}")
+    public void categoryDelete(@PathVariable String id) {
+        try {
+            categoryService.deleteCategory(id);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id not found");
+        }
+    }
 }
