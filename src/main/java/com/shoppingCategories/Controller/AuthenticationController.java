@@ -1,7 +1,7 @@
 package com.shoppingCategories.Controller;
 
 import com.shoppingCategories.Entities.AuthenticationResponse;
-import com.shoppingCategories.Entities.User;
+import com.shoppingCategories.Entities.Users;
 import com.shoppingCategories.Security.MyUserDetailsService;
 import com.shoppingCategories.Util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ class AuthenticationController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody User authenticationRequest) throws Exception {
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody Users authenticationRequest) throws Exception {
 
         try {
             authenticationManager.authenticate(

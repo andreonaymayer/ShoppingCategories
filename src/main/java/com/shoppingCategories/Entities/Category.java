@@ -1,22 +1,25 @@
 package com.shoppingCategories.Entities;
 
 import java.util.UUID;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Document
+@Entity
+@Table(name = "Category")
 public class Category {
     @Id
-    private UUID id;
+    //private UUID id;
+    private String id;
     private String name;
 
     public Category(String id, String name) {
         this.name = name;
-        this.id = UUID.randomUUID();
+        this.id = id;//UUID.randomUUID();
     }
 
     public String getId() {
-        return id.toString();
+        return id;//.toString();
     }
 
     public String getName() {

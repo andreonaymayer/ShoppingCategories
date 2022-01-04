@@ -1,19 +1,24 @@
 package com.shoppingCategories.Entities;
 
 import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-public class User implements Serializable {
+@Entity
+@Table(name = "Users")
+public class Users implements Serializable {
 
-
+    @Id
     private String username;
     private String password;
 
     //need default constructor for JSON Parsing
-    public User() {
+    public Users() {
 
     }
 
-    public User(String username, String password) {
+    public Users(String username, String password) {
         this.setUsername(username);
         this.setPassword(password);
     }
