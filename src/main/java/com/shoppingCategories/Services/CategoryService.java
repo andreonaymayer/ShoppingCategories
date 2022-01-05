@@ -4,6 +4,7 @@ import com.shoppingCategories.Entities.Category;
 import com.shoppingCategories.Repository.CategoryRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,17 @@ public class CategoryService {
     }
 
     public Category newCategory(Category category) {
-        return categoryRepo.save(category);
+        UUID idToConvert = UUID.randomUUID();
+        if (category.getId() == null){
+            category.setId(idToConvert.toString());
+            return categoryRepo.save(category);
+        }
+        if (!categoryRepo.existsById(category.getId())) {
+            category.setId(idToConvert.toString());
+            return categoryRepo.save(category);
+        }
+        throw new IllegalArgumentException("ID not found");
+
     }
 
     public Category getCategoryByID(String id) {

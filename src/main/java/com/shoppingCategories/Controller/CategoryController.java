@@ -40,8 +40,12 @@ public class CategoryController {
     @PostMapping("/category/")
     @ResponseStatus(HttpStatus.CREATED)
     public void addCategory(@RequestBody Category category) {
+        try {
+            categoryService.newCategory(category);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Id already exists");
+        }
 
-        categoryService.newCategory(category);
     }
 
     @GetMapping("/category/{id}")
